@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink-950: #07090c;
+  --color-ink-900: #0b0e13;
+  --color-ink-850: #0f131a;
+  --color-ink-800: #141922;
+  --color-ink-700: #1d2430;
+  --color-ink-600: #2a3342;
+  --color-ink-500: #3d4859;
+  --color-ink-400: #5f6b7d;
+  --color-ink-300: #8b96a8;
+  --color-ink-200: #b9c1ce;
+  --color-ink-100: #e3e7ee;
+  --color-brass: #d9a441;
+  --color-brass-dim: #8a6a2c;
+  --color-crit: #ef4444;
+  --color-high: #f97316;
+  --color-med: #eab308;
+  --color-low: #38bdf8;
+  --color-safe: #34d399;
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html { color-scheme: dark; }
+
+body {
+  background: var(--color-ink-950);
+  color: var(--color-ink-100);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* faint surveillance grid */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.panel {
+  background: var(--color-ink-900);
+  border: 1px solid var(--color-ink-700);
+  border-radius: 6px;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-300);
+}
+
+.redacted {
+  background: repeating-linear-gradient(-45deg, var(--color-ink-700) 0 6px, var(--color-ink-800) 6px 12px);
+}
+
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise 0.5s cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes scan { from { transform: translateX(-100%); } to { transform: translateX(400%); } }
+.scanbar { animation: scan 1.4s ease-in-out infinite; }
+
+@keyframes stamp { 0% { opacity: 0; transform: scale(1.6) rotate(-8deg); } 60% { opacity: 1; transform: scale(0.96) rotate(-4deg); } 100% { opacity: 1; transform: scale(1) rotate(-4deg); } }
+.stamp { animation: stamp 0.6s cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .scanbar, .stamp, .pulse-dot { animation: none !important; }
+}
+
+::selection { background: rgb(217 164 65 / 0.35); }
